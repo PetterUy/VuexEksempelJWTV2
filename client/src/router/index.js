@@ -1,11 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import ULogin from '../components/ULogin.vue';
+import URegister from '../components/URegister.vue';
+import UProfile from '../components/UProfile.vue';
+import UPlay from '../components/UPlay.vue';
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView,
+  },
+  {
+    path: '/login',
+    name: 'ULogin',
+    component: ULogin,
+  },
+  {
+    path: '/profile',
+    name: 'UProfile',
+    component: UProfile,
+  },
+  {
+    path: '/play',
+    name: 'UPlay',
+    component: UPlay,
+  },
+  {
+    path: '/register',
+    name: 'URegister',
+    component: URegister,
   },
   {
     path: '/about',

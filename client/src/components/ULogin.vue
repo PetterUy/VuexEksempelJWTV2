@@ -4,10 +4,18 @@
       <h1 v-if="!loggedin">Please log in to continue.</h1>
       <form v-if="!loggedin" @submit.prevent="login">
         <label for="username">
-          <input type="text" id="username" v-model="credentials.username" required>
+          <input type="text"
+          placeholder = "email"
+          id="username"
+          v-model="credentials.username"
+          required>
         </label>
         <label for="password">
-          <input type="password" id="password" v-model="credentials.password" required>
+          <input type="password"
+          id="password"
+          v-model="credentials.password"
+          placeholder = "password"
+          required>
         </label>
         <button type="submit">Log in</button>
       </form>

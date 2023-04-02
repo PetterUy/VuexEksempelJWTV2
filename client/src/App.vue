@@ -1,13 +1,26 @@
 <template>
-  <LoginForm></LoginForm>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/login" v-if="!loggedin">Login </router-link> |
+    <router-link to="/register" v-if="!loggedin">Register</router-link> |
+    <router-link to="/profile" v-if="loggedin">profile</router-link> |
+    <router-link to="/play" v-if="loggedin">play</router-link> |
+  </nav>
+  <router-view/>
 </template>
 
 <script>
-import LoginForm from './components/ULogin.vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
-  components: {
-    LoginForm,
+  setup() {
+    const store = useStore();
+    const loggedin = computed(() => store.state.loggedin);
+
+    return {
+      loggedin,
+    };
   },
 };
 </script>
