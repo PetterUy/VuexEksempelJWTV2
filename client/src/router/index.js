@@ -20,11 +20,13 @@ const routes = [
     path: '/profile',
     name: 'UProfile',
     component: UProfile,
+    meta: { requiresAuth: true },
   },
   {
     path: '/play',
     name: 'UPlay',
     component: UPlay,
+    meta: { requiresAuth: true },
   },
   {
     path: '/register',
@@ -44,6 +46,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('AToken');
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (isAuthenticated) {
+      next();
+    } else {
+      next('/login'); // Redirect to the login page if not authenticated
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

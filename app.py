@@ -78,11 +78,6 @@ def register():
     return jsonify({'status': 'success', 'message': 'Account creation successful!'})
     
 
-    
-
-    
-
-     
 @app.route('/api/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh():
@@ -90,9 +85,9 @@ def refresh():
     access_token = create_access_token(identity=username)
     return jsonify({'status': 'success', 'access_token': access_token})
 
-@app.route('/protected', methods=["GET"])
+@app.route('/profile', methods=["GET"])
 @jwt_required()
-def hemmelig():
+def UProfile():
     username = get_jwt_identity()
     return jsonify(logged_in_as=username), 200
 
