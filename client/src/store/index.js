@@ -10,10 +10,14 @@ export default createStore({
     login(state, username) {
       state.loggedin = true;
       state.username = username;
+      localStorage.setItem('username', username);
+      localStorage.setItem('loggedin', true);
     },
     logout(state) {
       state.loggedin = false;
       state.username = '';
+      localStorage.removeItem('username');
+      localStorage.removeItem('loggedin');
     },
   },
   actions: {
@@ -23,6 +27,15 @@ export default createStore({
         commit('login', credentials.username);
       } else {
         alert(response.data.message);
+      }
+    },
+    loadStateFromLocalStorage({ commit }) {
+      const username = localStorage.getItem('username');
+      const loggedin = localStorage.getItem('loggedin');
+      if (username && loggedin) {
+        commit('login', username);
+      } else {
+        commit('logout');
       }
     },
     logout({ commit }) {

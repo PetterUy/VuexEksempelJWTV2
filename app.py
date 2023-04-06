@@ -13,12 +13,11 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 60  # seconds
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = 3600  # seconds
 jwt = JWTManager(app)
 CORS(app)
+bcrypt = Bcrypt(app)
 
 @app.route('/')
 def ree():
     return "ree"
-
-    
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -40,7 +39,7 @@ def login():
     if result:
         print("reeeeeeee")
         stored_password = result[0]
-        if stored_password == password:
+        if bcrypt.check_password_hash(stored_password, password):
             access_token = create_access_token(identity=username)
             refresh_token = create_refresh_token(identity=username)
             print(request.headers)
@@ -62,13 +61,14 @@ def register():
     username = request.json.get('username')
     email = request.json.get('email')
     password = request.json.get('password')
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     cur = conn.cursor()
     
     try:
         cur.execute('INSERT INTO users (name, email, password)'
             'VALUES (%s, %s, %s)',
-            (username, email, password)
+            (username, email, hashed_password)
     )
     except:
         print("Your username or email is not unique.")
@@ -110,10 +110,12 @@ def ServerDbInit():
         'email varchar (50) NOT NULL UNIQUE,'
         'password varchar (60) NOT NULL);'
         )
+        password = 'password'
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         # Inserting a dummy account into users table
         cur.execute('INSERT INTO users (name, email, password)'
         'VALUES (%s, %s, %s)',
-        ('petter', 'petter_1995@hotmail.com', 'password')
+        ('petter', 'petter_1995@hotmail.com', hashed_password)
         )
 
         # Deletes the games table if it already exists

@@ -28,6 +28,12 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 import axios from 'axios';
 
+// Import the Bootstrap CSS file
+import 'bootstrap/dist/css/bootstrap.css';
+
+// Import the Bootstrap JS file
+import 'bootstrap/dist/js/bootstrap.bundle';
+
 export default {
   setup() {
     const store = useStore();
@@ -113,3 +119,28 @@ export default {
   },
 };
 </script>
+
+<style>
+.form-control:focus {
+  box-shadow: none;
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+@media (min-width: 576px) {
+  .card {
+    width: 25rem;
+  }
+}
+</style>

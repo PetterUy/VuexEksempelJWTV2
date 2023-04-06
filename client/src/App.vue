@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-grey bg-light">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">The Robot Game</router-link>
       <button class="navbar-toggler"
@@ -75,5 +75,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+body {
+  background-color: #252323;
+  color: #fff;
 }
 </style>
